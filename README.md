@@ -78,3 +78,11 @@ por activo; si hay lugar, se entra en la(s) de mayor fuerza relativa (12-1 o 3 m
   2015–2026 con parámetros elegidos hasta 2014: 48,4% (SPY 12,8%, equiponderado 37,8%). t ≈ 1,6 contra el equiponderado.
 - Con 1 sola posición: 23,0% y caída −62%. Entrar solo el día del cruce (modo "event") rinde mucho menos.
 - MACD, estocástico, Bollinger y votación siguen perdiendo plata también en este formato.
+
+**Estrategias del notebook de Diego** (`bt/legacy.py`, 39 funciones de `funciones_algotrading_lab.ipynb` reimplementadas sin
+pandas_ta/vectorbt; `legacy_per_asset.py` -> `results/notebook_por_activo.csv`). Cada una sobre cada activo contra su B&H, con y sin el stop de 2,5%.
+- Ninguna le gana al B&H en promedio en las 10 líquidas (B&H promedio 20,7%). La mejor real es el cruce SMA 50/200: 16,8% y gana en 3 de 10.
+- `bollinger_w_pattern` "empata" porque entra una vez y su regla de salida casi nunca se cumple: en la práctica es B&H.
+- 7 nunca operan (condiciones contradictorias: ema_rsi, ema_mfi, ema_bollinger, divergencias). pivot_points opera ~88 veces por año y pierde ~58% anual.
+- El stop de 2,5% empeora todas.
+- Leakage corregido del original: CHIKOU de Ichimoku (close[t+26]) y cuantil de ATR sobre toda la serie.

@@ -39,3 +39,12 @@ def test_execution_next_open_and_costs():
     expected = 0.99 * px.close.at[d1, "SPY"] / px.open.at[d1, "SPY"]
     assert abs(res.equity.iloc[1] - expected) < 1e-3
     assert len(res.trades) == 1
+
+
+@pytest.mark.parametrize("name", ["ichi_sma_strategy", "atr_volatility_bearish_strategy", "macd_strategy", "sar_bearish_strategy", "kama_strategy"])
+def test_legacy_truncation(name):
+    from bt import legacy
+    px = data.load(["NVDA"]).slice("2010-01-01", "2016-12-31")
+    full = legacy.state_for(px, "NVDA", name)
+    for i in (400, 900, 1500):
+        assert np.isclose(full.iloc[i], legacy.state_for(px.upto(i), "NVDA", name).iloc[-1], equal_nan=True)
