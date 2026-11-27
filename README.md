@@ -86,3 +86,10 @@ pandas_ta/vectorbt; `legacy_per_asset.py` -> `results/notebook_por_activo.csv`).
 - 7 nunca operan (condiciones contradictorias: ema_rsi, ema_mfi, ema_bollinger, divergencias). pivot_points opera ~88 veces por año y pierde ~58% anual.
 - El stop de 2,5% empeora todas.
 - Leakage corregido del original: CHIKOU de Ichimoku (close[t+26]) y cuantil de ATR sobre toda la serie.
+
+## Conclusión (2026-11-27)
+
+Diego descartó el trading por análisis técnico: en ninguna de las rondas (55 estrategias propias y del notebook, sobre SPY,
+QQQ, las 10 y las 30 CEDEARs, con y sin costos) una regla técnica de entrar/salir le ganó al buy & hold del mismo activo.
+Lo único que superó al SPY fue estar en activos más fuertes (fuerza relativa / el modelo de rotacion_cartera).
+El motor queda disponible para probar otras ideas con la misma vara.
