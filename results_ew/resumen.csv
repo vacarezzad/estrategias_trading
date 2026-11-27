@@ -1,0 +1,2 @@
+estrategia,desde,hasta,cagr,cagr_bench,exceso_cagr,vol,sharpe,sortino,max_dd,max_dd_bench,calmar,beta,info_ratio,t_exceso,exposicion_media,rotacion_anual,operaciones_anuales,costo_anual,anios_gana,anios,variante,params
+ew_universe,2004-01-02,2026-11-25,0.2236,0.1039,0.1197,0.2230,1.0183,1.3459,-0.5223,-0.5518,0.4280,1.0490,1.0296,4.9226,0.9848,0.1612,5.4593,0.0006,17,23,default,{}

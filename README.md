@@ -49,3 +49,17 @@ Las mejores (cruce EMA 50/200, compra de caídas en tendencia) rinden ~5,5% cont
 
 Le gana al SPY solo quien tiene un activo más agresivo (QQQ, o las acciones del universo de rotación). Las reglas de timing
 siempre rinden menos que mantener ese mismo activo y a cambio recortan la caída. Elegir QQQ mirando hacia atrás tiene sesgo.
+
+**Ronda 3, técnico relativo** (`bt/relative.py`, `results_relativo/`, `results_ew/`, desde 2004): top k de los 30 CEDEARs por fuerza relativa.
+
+| Variante | 2004–2026 CAGR | Caída máx | Sharpe | 2015–2026 CAGR |
+|---|---|---|---|---|
+| SPY B&H | 10,4% | −55% | | 12,8% |
+| Los 30 en partes iguales (B&H) | 22,4% | −52% | 1,02 | 27,4% |
+| Top 5 por momentum 12-1, mensual, buffer top 7 | 25,3% | −44% | 0,90 | 33,4% |
+| ídem bimestral, 50% si SPY < SMA 200 | 25,2% | −40% | 0,94 | 29,2% |
+| Elegida por Sharpe hasta 2014 (mom/vol, top 8, bimestral, 50%) | 18,5% | −36% | 0,91 | 18,5% |
+
+Le gana al SPY por mucho, pero casi todo viene del universo (las 30 de hoy son ganadoras conocidas). Contra el B&H
+equiponderado de los mismos 30 agrega ~3 pp por año con t ≈ 1,4: no es significativo, y la variante elegida en IS pierde fuera de muestra.
+El máximo de 52 semanas no funciona. El modelo ML de rotacion_cartera (48%, t ≈ 3,5 contra el equiponderado) sigue siendo claramente mejor.

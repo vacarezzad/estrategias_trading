@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 
 from bt import data, engine, metrics
-from bt import refine  # noqa: F401 (registra las estrategias afinadas)
+from bt import refine, relative  # noqa: F401 (registran estrategias)
 from bt.strategies import REGISTRY
 
 OUT = "results"  # se puede cambiar con --out
