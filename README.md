@@ -63,3 +63,10 @@ siempre rinden menos que mantener ese mismo activo y a cambio recortan la caída
 Le gana al SPY por mucho, pero casi todo viene del universo (las 30 de hoy son ganadoras conocidas). Contra el B&H
 equiponderado de los mismos 30 agrega ~3 pp por año con t ≈ 1,4: no es significativo, y la variante elegida en IS pierde fuera de muestra.
 El máximo de 52 semanas no funciona. El modelo ML de rotacion_cartera (48%, t ≈ 3,5 contra el equiponderado) sigue siendo claramente mejor.
+
+**Solo las 10 más líquidas** (NVDA, GOOGL, AMD, QQQ, MELI, VIST, META, MSFT, AMZN, GLD; `results_top10/`, desde 2004):
+- Timing por activo (15 estrategias): la mejor es el filtro SMA 200, con 16,3% de CAGR promedio contra 20,3% del B&H de cada activo. Le gana en 2 de 10.
+- Top 3 por momentum 12-1, mensual: 28,3% contra 24,5% del equiponderado de las 10 y 10,4% del SPY. Caída de −61%, t ≈ 1,4 contra el equiponderado.
+  Desde 2015: 45% contra 37,8% del equiponderado y 12,8% del SPY. Con 50% invertido cuando el SPY está bajo la SMA 200, la caída baja a −39% y empata con el equiponderado.
+  Las 32 combinaciones de la grilla le ganan al SPY (17,8% a 28,3%), pero casi todas pierden contra el equiponderado.
+- Sesgo: las 10 más líquidas de hoy son las ganadoras de la última década; el equiponderado de las 10 ya hace 24,5%.

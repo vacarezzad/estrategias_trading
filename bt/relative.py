@@ -17,10 +17,12 @@ from . import strategies as S
 from .refine import UNIVERSE
 
 START = pd.Timestamp("2004-01-01")
+TOP10 = UNIVERSE[:10]  # las 10 más líquidas de BYMA (nov-2026)
+UNIVS = {"u30": UNIVERSE, "u10": TOP10}
 
 
-def scores(px, kind: str) -> pd.DataFrame:
-    c = px.close[UNIVERSE]
+def scores(px, kind: str, U=UNIVERSE) -> pd.DataFrame:
+    c = px.close[U]
     hist = c.notna().rolling(252).sum() >= 252  # al menos un año de historia
     if kind == "mom12_1":
         s = c.shift(21) / c.shift(252) - 1
@@ -54,12 +56,13 @@ def spy_regime(px, band=0.01) -> pd.Series:
             default={"score": "mom12_1", "k": 5, "freq": "M", "buffer": 2, "regime": "none"},
             desc="Top k de los 30 por fuerza relativa, pesos iguales, rebalanceo mensual/bimestral con buffer. "
                  "regime=half: si el SPY está bajo su SMA 200, invierte solo 50% (resto liquidez).")
-def rel_strength(px, score="mom12_1", k=5, freq="M", buffer=2, regime="none"):
-    sc = scores(px, score)
+def rel_strength(px, score="mom12_1", k=5, freq="M", buffer=2, regime="none", univ="u30"):
+    U = UNIVS[univ]
+    sc = scores(px, score, U)
     idx = sc.index
     reb = rebalance_days(idx, freq) & (idx >= START)
     reg = spy_regime(px) if regime != "none" else pd.Series(1.0, idx)
-    w = pd.DataFrame(np.nan, idx, UNIVERSE)
+    w = pd.DataFrame(np.nan, idx, U)
     held: list[str] = []
     for i in np.nonzero(reb)[0]:
         row = sc.iloc[i].dropna().sort_values(ascending=False)
@@ -77,8 +80,8 @@ def rel_strength(px, score="mom12_1", k=5, freq="M", buffer=2, regime="none"):
 
 @S.strategy("ew_universe", UNIVERSE + ["SPY"],
             desc="Referencia: los 30 en partes iguales (los que tienen un año de historia), sin rebalancear salvo cuando entra un activo nuevo.")
-def ew_universe(px):
-    elig = scores(px, "high52").notna()
+def ew_universe(px, univ="u30"):
+    elig = scores(px, "high52", UNIVS[univ]).notna()
     idx = elig.index
     elig = elig.astype(float)
     elig.loc[~S.first_day_of_month(idx)] = np.nan
@@ -89,3 +92,16 @@ def ew_universe(px):
     changed.iloc[idx.searchsorted(START)] = True
     w.loc[~(changed & (idx >= START)).values] = np.nan
     return w
+
+
+@S.strategy("rel10_strength", UNIVERSE + ["SPY"],
+            grid={"score": ["mom12_1", "mom_vol"], "k": [3, 5], "freq": ["M", "2M"], "buffer": [0, 1], "regime": ["none", "half"]},
+            default={"score": "mom12_1", "k": 3, "freq": "M", "buffer": 1, "regime": "none"},
+            desc="Fuerza relativa solo sobre las 10 CEDEARs más líquidas.")
+def rel10_strength(px, **p):
+    return rel_strength(px, univ="u10", **p)
+
+
+@S.strategy("ew10_universe", UNIVERSE + ["SPY"], desc="Referencia: las 10 más líquidas en partes iguales.")
+def ew10_universe(px):
+    return ew_universe(px, univ="u10")

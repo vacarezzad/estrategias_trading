@@ -1,0 +1,32 @@
+rel10_strength: 32 combinaciones
+    estrategia            variante      desde  cagr  cagr_bench  sharpe  max_dd  max_dd_bench  exposicion_media  operaciones_anuales  costo_anual  anios_gana  anios  t_exceso                                                                   params
+rel10_strength             default 2004-01-02 0.283       0.104   0.943  -0.608        -0.552             1.000               27.384        0.027          15     23     3.706 {"score": "mom12_1", "k": 3, "freq": "M", "buffer": 1, "regime": "none"}
+rel10_strength OOS (elegida en IS) 2015-01-02 0.239       0.128   0.973  -0.341        -0.337             0.920               39.341        0.038           8     12     2.210 {"score": "mom_vol", "k": 5, "freq": "M", "buffer": 1, "regime": "half"}
+rel10_strength         OOS default 2015-01-02 0.450       0.128   1.259  -0.396        -0.337             1.000               27.152        0.027          11     12     4.021 {"score": "mom12_1", "k": 3, "freq": "M", "buffer": 1, "regime": "none"}
+
+Grilla (período completo): distribución del exceso de CAGR vs SPY
+estrategia         rel10_strength
+exceso_cagr count          32.000
+            mean            0.120
+            std             0.028
+            min             0.074
+            25%             0.105
+            50%             0.114
+            75%             0.127
+            max             0.179
+sharpe      count          32.000
+            mean            0.880
+            std             0.051
+            min             0.766
+            25%             0.845
+            50%             0.875
+            75%             0.915
+            max             0.988
+max_dd      count          32.000
+            mean           -0.486
+            std             0.118
+            min            -0.673
+            25%            -0.609
+            50%            -0.441
+            75%            -0.383
+            max            -0.323
