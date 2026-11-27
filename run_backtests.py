@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 
 from bt import data, engine, metrics
+from bt import refine  # noqa: F401 (registra las estrategias afinadas)
 from bt.strategies import REGISTRY
 
 OUT = "results"  # se puede cambiar con --out
@@ -45,7 +46,7 @@ def run_one(name, spec, px, costs, start, end, params):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only")
+    ap.add_argument("--only", help="prefijo del nombre, ej. af_")
     ap.add_argument("--start", default="2000-01-01")
     ap.add_argument("--end", default=None)
     ap.add_argument("--split", default="2014-12-31", help="fin del tramo de elección de parámetros")
@@ -58,7 +59,7 @@ def main():
     costs = engine.Costs(per_side=a.cost, slippage=a.slippage)
     os.makedirs(OUT, exist_ok=True)
 
-    names = [a.only] if a.only else [n for n in REGISTRY if n != "buy_hold_spy"]
+    names = [n for n in REGISTRY if n != "buy_hold_spy" and (not a.only or n.startswith(a.only))]
     rows, grid_rows, curves, yearly = [], [], {}, {}
     for name in names:
         spec = REGISTRY[name]

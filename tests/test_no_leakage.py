@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from bt import data, engine
+from bt import data, engine, refine  # noqa: F401
 from bt.strategies import REGISTRY
 
 

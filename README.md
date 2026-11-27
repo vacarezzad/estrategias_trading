@@ -30,11 +30,22 @@ Salidas en `results/`: `resumen.csv` (default, OOS elegida en IS y OOS default),
 En `bt/strategies.py`, una función que recibe `Prices` y devuelve pesos objetivo (fechas x tickers), decorada con
 `@strategy(nombre, tickers, grid=..., default=...)`. Fila NaN = no tocar la cartera.
 
-## Resultados hasta ahora
+## Resultados hasta ahora (2026-11-27)
 
-| Estrategia | Período | CAGR | SPY B&H | MaxDD | Operaciones/año |
-|---|---|---|---|---|---|
-| Filtro SMA 200 mensual sobre SPY | 2000–2026 | 5,3% | 8,0% | −35% (SPY −55%) | 1,4 |
-| ídem, OOS 2015–2026 | 2015–2026 | 3,2% | 12,8% | −35% (SPY −34%) | 1,9 |
+**Ronda 1, 16 estrategias técnicas sobre SPY** (`results/`, y sin costos en `results_sin_costos/`): MACD, Bollinger (reversión y ruptura),
+cruce de 2 y 3 EMAs, ribbon, estocástico, ATR trailing, filtro SMA 200 y 5 combinaciones. Ninguna le gana al B&H del SPY, ni sin costos.
+Las de muchas operaciones (MACD, estocástico, Bollinger, ribbon, votación: 6 a 17 por año) mueren con los costos de IOL.
+Las mejores (cruce EMA 50/200, compra de caídas en tendencia) rinden ~5,5% contra 8,0% del SPY (2000–2026) con caídas de −21% a −36% contra −55%.
 
-Con costos de IOL la versión diaria del filtro (≈7 operaciones por año) queda en −1,9% anual: las señales diarias no sirven.
+**Ronda 2, afinado** (`results_afinado/`, desde fines de 2004): activo (SPY/QQQ), refugio al salir (liquidez, GLD, IEF) y piso de exposición (0%/50%).
+
+| Variante | 2004–2026 CAGR | Caída máx | 2015–2026 CAGR | Caída máx |
+|---|---|---|---|---|
+| SPY B&H | 10,4% | −55% | 12,8% | −34% |
+| QQQ B&H | 14,3% | −53% | 17,3% | −35% |
+| QQQ + cruce EMA 50/200, baja a 50% al cruzar a la baja | 12,7% | −41% | 15,8% | −29% |
+| QQQ + cruce EMA 50/200, sale del todo | 11,0% | −34% | 14,2% | −29% |
+| SPY + compra de caídas en tendencia, 50% en IEF al salir | 8,7% | −27% | 9,3% | −24% |
+
+Le gana al SPY solo quien tiene un activo más agresivo (QQQ, o las acciones del universo de rotación). Las reglas de timing
+siempre rinden menos que mantener ese mismo activo y a cambio recortan la caída. Elegir QQQ mirando hacia atrás tiene sesgo.
