@@ -70,3 +70,11 @@ El máximo de 52 semanas no funciona. El modelo ML de rotacion_cartera (48%, t �
   Desde 2015: 45% contra 37,8% del equiponderado y 12,8% del SPY. Con 50% invertido cuando el SPY está bajo la SMA 200, la caída baja a −39% y empata con el equiponderado.
   Las 32 combinaciones de la grilla le ganan al SPY (17,8% a 28,3%), pero casi todas pierden contra el equiponderado.
 - Sesgo: las 10 más líquidas de hoy son las ganadoras de la última década; el equiponderado de las 10 ya hace 24,5%.
+
+**Trades sobre la mejor de las 10, máximo 2 a la vez** (`single_best.py`, `results_top10/single_best_*.csv`): cada estrategia da la señal
+por activo; si hay lugar, se entra en la(s) de mayor fuerza relativa (12-1 o 3 meses) y se sale con la señal de venta de esa estrategia.
+- Mejor: cruce EMA 50/200, 2 posiciones de 50%, entrando en las 2 más fuertes que estén con EMA 50 > EMA 200 (modo "state").
+  2004–2026: 28,2% (SPY 10,4%, equiponderado de las 10 24,5%), caída −50%, ~4,5 operaciones por año, 15 de 23 años mejor que el SPY.
+  2015–2026 con parámetros elegidos hasta 2014: 48,4% (SPY 12,8%, equiponderado 37,8%). t ≈ 1,6 contra el equiponderado.
+- Con 1 sola posición: 23,0% y caída −62%. Entrar solo el día del cruce (modo "event") rinde mucho menos.
+- MACD, estocástico, Bollinger y votación siguen perdiendo plata también en este formato.
