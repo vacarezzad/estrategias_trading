@@ -21,7 +21,7 @@ import pandas as pd
 from bt import data, engine, metrics
 from bt.strategies import REGISTRY
 
-OUT = "results"
+OUT = "results"  # se puede cambiar con --out
 
 
 def combos(grid):
@@ -51,7 +51,10 @@ def main():
     ap.add_argument("--split", default="2014-12-31", help="fin del tramo de elección de parámetros")
     ap.add_argument("--cost", type=float, default=engine.IOL_COST_PER_SIDE)
     ap.add_argument("--slippage", type=float, default=0.002, help="prima CEDEAR/CCL + spread, por lado")
+    ap.add_argument("--out", default="results")
     a = ap.parse_args()
+    global OUT
+    OUT = a.out
     costs = engine.Costs(per_side=a.cost, slippage=a.slippage)
     os.makedirs(OUT, exist_ok=True)
 
